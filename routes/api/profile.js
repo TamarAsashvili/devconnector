@@ -3,6 +3,10 @@ const router = express.Router();
 const mongoose = require('mongoose')
 const passport = require('passport')
 
+//Load validation
+
+const validateProfileInput = require('../../validation/profile')
+
 
 //load rofile model
 const Profile = require('../../models/Profile')
@@ -44,6 +48,15 @@ router.post(
     '/',
     passport.authenticate('jwt', { session: false }),
     (req, res) => {
+
+        const { errors, isValid } = validateProfileInput(req.body);
+        //check validation
+
+        if (!isValid) {
+            //return any errors with 400 status
+            return res.status(400).json(errors);
+
+        }
         //GEt fields
         const profileFields = {};
         profileFields.user = req.user.id;
@@ -78,19 +91,21 @@ router.post(
                         { $set: profileFields },
                         { new: true }
                     )
-                        .then(profile => req.json(profile));
+                        .then(profile => res.json(profile));
                 } else {
                     //Create
 
                     //check if handele exists
-                    Profile.findOne({ handle: profileFields.handle }).then(profile => {
-                        if (profile) {
-                            errors.handle = 'that handle already exists'
-                            res.status(400).json(errors)
-                        }
-                        //Save profiele
-                        new Profile(profileFields).save().then(profile => res.json(profile));
-                    });
+                    Profile.findOne({ handle: profileFields.handle })
+                        .then(profile => {
+                            if (profile) {
+                                errors.handle = 'That handle already exists'
+                                res.status(400).json(errors)
+                            }
+                            //Save profiele
+                            new Profile(profileFields).save()
+                                .then(profile => res.json(profile));
+                        });
                 }
             }
             )
