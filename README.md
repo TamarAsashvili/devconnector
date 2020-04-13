@@ -1,3 +1,7 @@
 # devconnector
 
-npm run server
+(npm run server)
+
+install concurrently
+
+npm run dev
