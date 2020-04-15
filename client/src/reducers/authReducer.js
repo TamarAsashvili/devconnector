@@ -1,7 +1,7 @@
 const initialState = {
     isAuthenticated: false,
-    user: {},
-    hello: 'test redux'
+    user: {}
+
 }
 
 export default function (state = initialState, action) {
