@@ -7,7 +7,6 @@ import { GET_ERRORS, SET_CURRENT_USER } from './types';
 
 //REGISTER user
 
-
 export const registerUser = (userData, history) => dispatch => {
 
     axios.post('/api/users/register', userData)
@@ -58,3 +57,13 @@ export const setCurrentUser = (decoded) => {
 }
 
 
+// Log user out
+
+export const logoutUser = () => dispatch => {
+    //remove token from localstorage
+    localStorage.removeItem('jwtToken');
+    //Remove auth header for future requests
+    setAuthToken(false)
+    //set current user to {} which will set isAuthenticated to false
+    dispatch(setCurrentUser({}))
+}
