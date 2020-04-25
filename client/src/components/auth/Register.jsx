@@ -6,8 +6,6 @@ import { registerUser } from '../../action/authActions';
 import TextFieldGroup from '../common/TextFieldGroup'
 
 
-
-
 class Register extends Component {
     constructor() {
         super();
