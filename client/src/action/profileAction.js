@@ -83,9 +83,9 @@ export const deleteExperience = (id) => dispatch => {
 
 
 // Delete education
-export const deleteEducation = (id) => dispatch => {
+export const deleteEducation = id => dispatch => {
     axios
-        .delete(`api/profile/education/${id}`)
+        .delete(`/api/profile/education/${id}`)
         .then(res =>
             dispatch({
                 type: GET_PROFILE,
@@ -97,8 +97,8 @@ export const deleteEducation = (id) => dispatch => {
                 type: GET_ERRORS,
                 payload: err.response.data
             })
-        )
-}
+        );
+};
 
 
 //Delete profile and account

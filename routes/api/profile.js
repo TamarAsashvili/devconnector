@@ -274,7 +274,7 @@ router.delete('/education/:edu_id', passport.authenticate('jwt', { session: fals
             // Get remove index
             const removeIndex = profile.education
                 .map(item => item.id)
-                .indexOf(req.params.exp_id)
+                .indexOf(req.params.edu_id)
 
             //splice out of array
 
