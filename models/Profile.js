@@ -115,7 +115,7 @@ const ProfileSchema = new Schema({
             type: String
 
         },
-        linkdin: {
+        linkedin: {
             type: String
 
         }
